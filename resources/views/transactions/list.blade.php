@@ -5,7 +5,10 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card">
-        <div class="card-header"><a href="{{ url('transactions/new') }}">Nova Transação</a></div>
+        <div class="card-header">
+          <a href="{{ url('/') }}">Dashboard</a>
+          <a style="padding: 1rem" href="{{ url('transactions/new') }}">Nova Transação</a>
+        </div>
 
         <div class="card-body">
           @if (session('status'))
@@ -21,23 +24,34 @@
               @foreach( $transactions as $transaction )
               <tr>
                 <td colspan="2">
-                  {{ $transaction -> value }} -
-                  {{ $transaction -> status }}
+                  R$ {{ $transaction -> value }} -
+                  {{ $transaction -> status }} - {{ $transaction -> created_at }}
                 </td>
                 <td>
-                  <a
-                    href="transactions/edit/{{ $transaction -> id }}"
-                    class="btn btn-info"
-                  >
-                    Editar
-                  </a>
-                </td>
-                <td>
-                  <form action="transactions/delete/{{ $transaction -> id }}" method="post">
-                  @csrf
-                  @method('delete')
-                    <button class="btn btn-danger">Deletar</button>
-                  </form>
+                  <div class="dropdown">
+                    <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      ...
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a
+                          href="transactions/view/{{ $transaction -> id }}"
+                          class="dropdown-item"
+                        >
+                          Ver
+                      </a>
+                      <a
+                          href="transactions/edit/{{ $transaction -> id }}"
+                          class="dropdown-item"
+                        >
+                          Editar
+                      </a>
+                      <form action="transactions/delete/{{ $transaction -> id }}" method="post">
+                        @csrf
+                        @method('delete')
+                          <button class="dropdown-item">Excluir</button>
+                      </form>
+                    </div>
+                  </div>
                 </td>
               </tr>
               @endforeach

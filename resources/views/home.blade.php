@@ -14,7 +14,8 @@
                         </div>
                     @endif
 
-                    <h1>Seja bem vindo</h1>
+                    <h1>Bem vindo {{ auth()->user()->name }},</h1>
+                    <p>Escolha uma das opções abaixo para começar a usar o sistema.</p>
                     <a href="{{ url('transactions') }}">Transações</a>
                 </div>
             </div>

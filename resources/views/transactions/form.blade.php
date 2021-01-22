@@ -6,7 +6,7 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-header">
-          <a href="{{ url('users') }}">Voltar</a>
+          <a href="{{ url('transactions') }}">Voltar</a>
         </div>
           <div class="card-body">
             @if (session('status'))
@@ -15,17 +15,98 @@
               </div>
             @endif
 
-            @if (Request::is('*/edit/*'))
+            @if (Request::is('*/view/*'))
+            <div class="form-group">
+              <label for="input-transId">ID - Transação</label>
+              <input
+                type="text"
+                name="id"
+                class="form-control"
+                id="input-transId"
+                value="{{ $transaction -> id }}"
+                disabled
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="input-cpf">CPF</label>
+              <input
+                type="text"
+                name="cpf"
+                class="form-control"
+                id="input-cpf"
+                value="{{ $transaction -> cpf }}"
+                disabled
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="input-value">Valor (R$)</label>
+              <input
+                type="text"
+                name="value"
+                class="form-control"
+                id="input-value"
+                value="{{ $transaction -> value }}"
+                disabled
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="input-status">Status</label>
+              <input
+                type="text"
+                name="status"
+                class="form-control"
+                id="input-status"
+                value="{{ $transaction -> status }}"
+                disabled
+              >
+            </div>
+
+            <a
+              href="/transactions/edit/{{$transaction -> id}}"
+              class="btn btn-primary"
+            >
+              Editar
+            </a>
+
+            @elseif (Request::is('*/edit/*'))
             <form action="{{ url('transactions/update') }}/{{ $transaction -> id }}" method="post">
             @csrf
               <div class="form-group">
-                <label for="input-user">User</label>
+                <label for="input-transId">ID - Transação</label>
+                <input
+                  type="text"
+                  name="id"
+                  class="form-control"
+                  id="input-transId"
+                  value="{{ $transaction -> id }}"
+                  disabled
+                >
+              </div>
+
+              <div class="form-group">
+                <label for="input-userId">ID - Usuário (Criador)</label>
+                <input
+                  type="text"
+                  name="user_id"
+                  class="form-control"
+                  id="input-userId"
+                  value="{{ $transaction -> user_id }}"
+                  disabled
+                >
+              </div>
+
+              <div class="form-group">
+                <label for="input-user">Criado por</label>
                 <input
                   type="text"
                   name="user"
                   class="form-control"
                   id="input-user"
                   value="{{ $transaction -> user }}"
+                  disabled
                 >
               </div>
 
@@ -41,7 +122,7 @@
               </div>
 
               <div class="form-group">
-                <label for="input-value">Value</label>
+                <label for="input-value">Valor (R$)</label>
                 <input
                   type="text"
                   name="value"
@@ -52,31 +133,20 @@
               </div>
 
               <div class="form-group">
-                <label for="input-status">Status</label>
-                <input
-                  type="text"
-                  name="status"
-                  class="form-control"
-                  id="input-status"
-                  value="{{ $transaction -> status }}"
-                >
+                <label for="select-status">Status</label>
+                <select class="form-control" name="status" id="select-status">
+                  <option value="Em processamento">Em processamento</option>
+                  <option value="Aprovada">Aprovada</option>
+                  <option value="Negada">Negada</option>
+                </select>
               </div>
 
               <button type="submit" class="btn btn-primary">Atualizar</button>
             </form>
 
             @else
-            <form action="{{ url('transactions/add') }}" method="post">
+            <form action="{{ url('transactions/add') }}" method="post" enctype="multipart/form-data">
             @csrf
-              <div class="form-group">
-                <label for="input-user">User</label>
-                <input
-                  type="text"
-                  name="user"
-                  class="form-control"
-                  id="input-user"
-                >
-              </div>
 
               <div class="form-group">
                 <label for="input-cpf">CPF</label>
@@ -89,7 +159,7 @@
               </div>
 
               <div class="form-group">
-                <label for="input-value">Value</label>
+                <label for="input-value">Valor (R$)</label>
                 <input
                   type="text"
                   name="value"
@@ -98,18 +168,7 @@
                 >
               </div>
 
-              <div class="form-group">
-                <label for="input-status">Status</label>
-                <input
-                  type="text"
-                  name="status"
-                  class="form-control"
-                  id="input-status"
-                  aria-describedby="statusHelp"
-                >
-              </div>
-
-              <button type="submit" class="btn btn-primary">Cadastrar</button>
+              <button type="submit" class="btn btn-primary">Salvar</button>
             </form>
             @endif
           </div>

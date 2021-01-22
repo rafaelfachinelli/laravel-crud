@@ -10,9 +10,12 @@ class Transaction extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user',
-        'value',
-        'cpf',
-        'status',
+      'user_id',
+      'user',
+      'value',
+      'cpf',
+      'file_name',
+      'file_path',
+      'status'
     ];
 }
