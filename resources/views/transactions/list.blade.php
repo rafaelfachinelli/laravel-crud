@@ -19,16 +19,18 @@
 
           <h1>Transações</h1>
 
+
+
           <table class="table table-bordered">
             <tbody>
               @foreach( $transactions as $transaction )
               <tr>
-                <td colspan="2">
+                <td colspan="2" class="align-middle">
                   R$ {{ $transaction -> value }} -
                   {{ $transaction -> status }} - {{ $transaction -> created_at }}
                 </td>
                 <td>
-                  <div class="dropdown">
+                  <div class="dropdown" style="display: flex; justify-content: center;">
                     <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       ...
                     </button>

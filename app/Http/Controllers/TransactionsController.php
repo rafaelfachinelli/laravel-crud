@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use Redirect;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TransactionsController extends Controller {
   public function index(){
@@ -17,26 +18,24 @@ class TransactionsController extends Controller {
   }
 
   public function add( Request $request ){
-    // $request->validate([
-    //   'file' => 'required|mimes:pdf,jpg,png|max:2048'
-    // ]);
-    $transaction = new Transaction;
 
-    // if($request->file()) {
-    //   $fileName = time().'_'.$request->file->getClientOriginalName();
-    //   $filePath = $request->file('file')->store('uploads', $fileName, 'public');
+    if($request->hasFile('file')) {
+      // $request->validate([
+      //   'file' => 'required|mimes:pdf,jpg,png|max:2048'
+      // ]);
 
-    //   $transaction->file_name = time().'_'.$request->file->getClientOriginalName();
-    //   $transaction->file_path = '/storage/' . $filePath;
-    // }
+      $fileName = time().'_'.$request->file->getClientOriginalName();
+      $filePath = $request->file->storeAs(auth()->user()->id.'/receipts', $fileName, 'local');
 
-    // $content = $request->file;
-    // Storage::put($fileName, $content->output());
+      $request->request->add(['file_name' => $fileName]);
+      $request->request->add(['file_path' => $filePath]);
+    }
 
     $request->request->add(['user_id' => auth()->user()->id]);
     $request->request->add(['user' => auth()->user()->name]);
 
-    $transaction = $transaction -> create( $request -> all() );
+    $transaction = new Transaction;
+    $transaction = $transaction -> create( $request -> except('file') );
 
     return Redirect::to('/transactions');
   }

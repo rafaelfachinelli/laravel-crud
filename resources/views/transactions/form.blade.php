@@ -40,14 +40,18 @@
               >
             </div>
 
-            <div class="form-group">
-              <label for="input-value">Valor (R$)</label>
+            <label for="input-value">Valor</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">R$</span>
+              </div>
               <input
                 type="text"
                 name="value"
                 class="form-control"
                 id="input-value"
                 value="{{ $transaction -> value }}"
+                aria-label="Valor em reais para a transação."
                 disabled
               >
             </div>
@@ -121,14 +125,18 @@
                 >
               </div>
 
-              <div class="form-group">
-                <label for="input-value">Valor (R$)</label>
+              <label for="input-value">Valor</label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">R$</span>
+                </div>
                 <input
                   type="text"
                   name="value"
                   class="form-control"
                   id="input-value"
                   value="{{ $transaction -> value }}"
+                  aria-label="Valor em reais para a transação."
                 >
               </div>
 
@@ -158,14 +166,23 @@
                 >
               </div>
 
-              <div class="form-group">
-                <label for="input-value">Valor (R$)</label>
+              <label for="input-value">Valor</label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">R$</span>
+                </div>
                 <input
                   type="text"
                   name="value"
                   class="form-control"
                   id="input-value"
+                  aria-label="Valor em reais para a transação."
                 >
+              </div>
+
+              <div class="form-group">
+                <label for="input-file">Comprovante</label>
+                <input type="file" name="file" class="form-control-file" id="input-file">
               </div>
 
               <button type="submit" class="btn btn-primary">Salvar</button>
